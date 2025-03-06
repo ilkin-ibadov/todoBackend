@@ -34,6 +34,16 @@ app.get("/cards", async (req, res) => {
   }
 });
 
+// Get todo by id
+app.get("/cards/:id", async (req, res) => {
+  try {
+    const card = await Card.findById(req.params.id);
+    res.status(200).json(card);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 app.post("/cards", async (req, res) => {
   const { title, description } = req.body;
   const newCard = new Card({ title, description });
